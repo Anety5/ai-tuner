@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "AI Tuner",
+  "version": "1.0.0",
+  "description": "Tune your on-device AI\u2019s personality \u2014 adjust creativity, factuality, sociability, obedience, and parental safety.",
+  "minimum_chrome_version": "138",
+  "icons": {
+    "16": "src/icons/icon16.png",
+    "48": "src/icons/icon48.png",
+    "128": "src/icons/icon128.png",
+    "256": "src/icons/icon256.png"
+  },
+  "action": {
+    "default_title": "AI Tuner",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "src/icons/icon16.png",
+      "48": "src/icons/icon48.png",
+      "128": "src/icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/icons/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
