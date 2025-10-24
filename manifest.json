@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "AI Optimizer",
+  "version": "1.0.0",
+  "description": "Personalize your on-device AI personality — adjust creativity, factuality, sociability, obedience, and parental safety.",
+  "minimum_chrome_version": "138",
+  "icons": {
+    "16": "src/icons/icon16.png",
+    "48": "src/icons/icon48.png",
+    "128": "src/icons/icon128.png",
+    "256": "src/icons/icon256.png"
+  },
+  "action": {
+    "default_title": "AI Optimizer",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "src/icons/icon16.png",
+      "48": "src/icons/icon48.png",
+      "128": "src/icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "omnibox": {
+    "keyword": "aioptimizer"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/icons/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
