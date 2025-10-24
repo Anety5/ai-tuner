@@ -1,45 +1,25 @@
 {
   "manifest_version": 3,
-  "name": "AI Optimizer",
-  "version": "1.0.0",
-  "description": "Personalize your on-device AI personality — adjust creativity, factuality, sociability, obedience, and parental safety.",
-  "minimum_chrome_version": "138",
-  "icons": {
-    "16": "src/icons/icon16.png",
-    "48": "src/icons/icon48.png",
-    "128": "src/icons/icon128.png",
-    "256": "src/icons/icon256.png"
-  },
-  "action": {
-    "default_title": "AI Optimizer",
-    "default_popup": "src/popup.html",
-    "default_icon": {
-      "16": "src/icons/icon16.png",
-      "48": "src/icons/icon48.png",
-      "128": "src/icons/icon128.png"
-    }
-  },
+  "name": "Idea Optimizer AI",
+  "version": "1.0",
+  "description": "An all-purpose tool to brainstorm, optimize, summarize, and proofread ideas for any topic, from professional projects to academic research, with built-in educational settings and a plagiarism guard.",
   "permissions": [
-    "storage",
-    "activeTab",
-    "scripting",
-    "https://generativelanguage.googleapis.com/*"
+    "ai"
   ],
-  "background": {
-    "service_worker": "src/background.js",
-    "type": "module"
-  },
-  "omnibox": {
-    "keyword": "aioptimizer"
-  },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "src/icons/*"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
+  "action": {
+    "default_title": "Open Idea Optimizer AI",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
     }
-  ]
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
 }

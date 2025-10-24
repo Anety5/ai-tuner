@@ -1,86 +1,74 @@
-# 🤖 AI Optimizer — Adaptive Browser Personality Controller
+# Idea Optimizer AI - Chrome Extension
 
-AI Optimizer lets you personalize how your AI responds inside Chrome.  
-Use intuitive sliders to adjust *creativity*, *factuality*, *sociability*, and *obedience*,  
-with a parental lock option for filtered interactions.  
-Built for the **Chrome Built-in AI Challenge 2025**, this extension integrates with Gemini Nano  
-or a fallback Google AI Studio API key.
+**Idea Optimizer AI** is a powerful Chrome Extension designed to be your all-in-one brainstorming partner and creative assistant. Whether you're a student, a professional, a writer, or a developer, this tool leverages the power of Google's Gemini AI to help you generate, refine, and perfect your ideas for any topic.
 
----
-
-## 🧠 Quick-Start Checklist
-
-### Step 1 – Clone or open project  
-Open the `AI Optimizer` folder in **VS Code** or Replit.
-
----
-
-### Step 2 – Load the extension in Chrome  
-1. Go to `chrome://extensions`  
-2. Enable **Developer Mode**  
-3. Click **Load Unpacked**  
-4. Select your `AI Optimizer` project folder
-
----
-
-### Step 3 – Enable Gemini Nano in Chrome  
-1. Visit  
-   - `chrome://flags/#optimization-guide-on-device-model` → Enable  
-   - `chrome://flags/#prompt-api-for-gemini-nano` → Enable  
-2. Go to `chrome://components` → find **Optimization Guide On Device Model** → **Check for update**  
-3. Restart Chrome and confirm “Ready” at `chrome://on-device-model-internals`
-
----
-
-### Step 4 – Add your Gemini API key (optional fallback)  
-- Open the **Options** page in AI Optimizer  
-- Paste your free **Google AI Studio** API key  
-- The extension will automatically use it if Nano isn’t available
-
----
-
-### Step 5 – Test AI Optimizer  
-In the Chrome address bar, type:  
-`aioptimizer <your question>`
-- You’ll see a notification with the AI’s answer
-- The **AI Optimizer side panel** opens automatically  
-- Adjust sliders and re-run the prompt
-
----
-
-### Step 6 – Update keyword trigger (optional)
-To change the keyword (default is `aioptimizer`) edit `manifest.json`:
-```json
-"omnibox": { "keyword": "aioptimizer" }
-```
-
----
-
-# 🎛️ AI Optimizer
-
-**AI Optimizer** lets you control how your AI thinks and speaks — from creative and chatty to factual and precise.  
-Built on Chrome’s **Prompt API** with **Gemini Nano**, it runs entirely **on-device** for privacy and speed.
+The extension launches in its own movable, resizable window, allowing you to use it seamlessly across multiple monitors and alongside your other applications. It intelligently uses a hybrid AI approach, prioritizing Chrome's built-in, on-device model for speed and privacy, while providing a powerful cloud-based model as a fallback to ensure it works for everyone.
 
 ## Features
-- 🎨 Creativity — literal ↔ imaginative  
-- 📘 Factuality — flexible ↔ research‑anchored  
-- 💬 Sociability — concise ↔ conversational  
-- 🧭 Obedience — adaptive ↔ strict instruction‑following  
-- 🧒 Parental Mode — G-rated, school‑safe tone (ON/OFF)
 
-## How it works
-- Uses Chrome’s Prompt API to create an on-device LLM session (Gemini Nano).  
-- Sliders map to model rails (temperature, topK, verbosity, grounding).  
-- Settings persist via `chrome.storage.sync`.
+- **Multi-Purpose AI Tasks**:
+  - **Optimize**: Take a raw concept and have the AI expand, refine, and structure it into a more complete idea.
+  - **Summarize**: Paste in long articles, research papers, or documents to get a quick, concise summary.
+  - **Proofread**: Clean up your text with a single click. The AI corrects grammar, spelling, and typos while preserving your original intent.
 
-## Install (dev)
-1. Unzip this folder.  
-2. Open Chrome → `chrome://extensions` → enable **Developer mode** → **Load unpacked** → select the folder.  
-3. Click the toolbar icon, adjust sliders, type a prompt, press **Run**.
+- **Hybrid AI Model**:
+  - **Nano (On-Device)**: Uses Chrome's built-in AI for fast, offline, and private processing.
+  - **Flash (Cloud)**: Seamlessly falls back to a powerful server-side model for users without built-in AI or for more complex tasks.
 
-## Privacy
-- 100% on-device inference  
-- No analytics or external API calls  
-- Parental Mode adds extra safety constraints (best‑effort)
+- **Fine-Grained Controls**:
+  - **Creativity Slider**: Adjust the AI's output from highly factual and conventional to wildly imaginative and "blue-sky."
+  - **Complexity Slider**: Tailor the response to your audience, from a simple, easy-to-understand explanation to a complex, expert-level analysis.
 
-Not affiliated with Google LLC. “Google” and “Chrome” are trademarks of Google LLC.
+- **Advanced Educational & Professional Settings**:
+  - **Educational Levels**: Switch between `General`, `K-12`, and `University` modes to adapt the AI's language and depth for the right audience.
+  - **Plagiarism Guard**: When in an educational mode, enable this feature to instruct the AI to synthesize information and avoid direct quotes, ensuring originality.
+  - **Smart Coding & STEM Assistant**: Ask for code in any language or help with complex topics in mathematics, physics, or biology, and receive well-formatted, commented responses.
+
+- **Accessibility & Ease of Use**:
+  - **Detachable Window**: The extension opens in its own window that you can move, minimize, and resize, perfect for multi-monitor setups.
+  - **Microphone Input**: Speak your ideas directly into the app using your computer's microphone.
+  - **Read Aloud (Text-to-Speech)**: Have the AI's generated response read back to you in a clear voice.
+
+## Installation and Usage
+
+To get the Idea Optimizer AI working in your Chrome browser, follow these simple steps.
+
+### Step 1: Create the Icons
+
+This extension needs three icon files. You can easily create them from the new logo.
+
+1.  Open the file `components/icons/Logo.tsx`.
+2.  Copy the entire `<svg>...</svg>` code block.
+3.  Go to an online SVG to PNG converter (like `svgtopng.com`).
+4.  Paste the SVG code and convert it to PNGs of the following sizes:
+    -   `16x16`
+    -   `48x48`
+    -   `128x128`
+5.  Create a new folder named `icons` in the main directory of your project.
+6.  Save the PNGs in the `icons` folder with these exact names: `icon16.png`, `icon48.png`, `icon128.png`.
+
+### Step 2: Open Chrome's Extensions Page
+
+1.  Open your Google Chrome browser.
+2.  In the address bar, type `chrome://extensions` and press **Enter**.
+3.  Alternatively, click the three vertical dots (`⋮`) in the top-right corner, go to **Extensions**, and select **Manage Extensions**.
+
+### Step 3: Enable Developer Mode
+
+On the Extensions page, find the **Developer mode** toggle in the top-right corner and turn it **ON**. This will enable new options for loading custom extensions.
+
+### Step 4: Load the Extension
+
+1.  Click the **Load unpacked** button that appeared in the top-left.
+2.  A file browser will open. Navigate to and select the folder containing all the project files.
+3.  Click **Select Folder**.
+
+### Step 5: Launch and Use
+
+The "Idea Optimizer AI" extension is now installed!
+
+-   Click the puzzle piece icon (`🧩`) in your Chrome toolbar.
+-   Find **Idea Optimizer AI** in the list and click it to launch the application.
+-   **Pro Tip**: Click the pin icon next to it in the list to keep it on your toolbar for easy one-click access.
+
+Now you're ready to start optimizing your ideas!
