@@ -1,54 +1,64 @@
-# 🧠 AI Tuner – Setup & Build Checklist
+# 🤖 AI Optimizer — Adaptive Browser Personality Controller
 
-### Step 1 – Clone or open project
-Open the `AI Tuner` folder in **VS Code** or Replit.
-
----
-
-### Step 2 – Load the extension in Chrome
-1. Open `chrome://extensions`
-2. Enable **Developer Mode**
-3. Click **Load Unpacked**
-4. Select your `AI Tuner` project folder
+AI Optimizer lets you personalize how your AI responds inside Chrome.  
+Use intuitive sliders to adjust *creativity*, *factuality*, *sociability*, and *obedience*,  
+with a parental lock option for filtered interactions.  
+Built for the **Chrome Built-in AI Challenge 2025**, this extension integrates with Gemini Nano  
+or a fallback Google AI Studio API key.
 
 ---
 
-### Step 3 – Enable Gemini Nano in Chrome
-1. Go to:
+## 🧠 Quick-Start Checklist
+
+### Step 1 – Clone or open project  
+Open the `AI Optimizer` folder in **VS Code** or Replit.
+
+---
+
+### Step 2 – Load the extension in Chrome  
+1. Go to `chrome://extensions`  
+2. Enable **Developer Mode**  
+3. Click **Load Unpacked**  
+4. Select your `AI Optimizer` project folder
+
+---
+
+### Step 3 – Enable Gemini Nano in Chrome  
+1. Visit  
    - `chrome://flags/#optimization-guide-on-device-model` → Enable  
    - `chrome://flags/#prompt-api-for-gemini-nano` → Enable  
-2. Visit `chrome://components` → “Optimization Guide On Device Model” → **Check for update**  
+2. Go to `chrome://components` → find **Optimization Guide On Device Model** → **Check for update**  
 3. Restart Chrome and confirm “Ready” at `chrome://on-device-model-internals`
 
 ---
 
-### Step 4 – Add a Gemini API key (optional fallback)
-- Open the **Options** page in AI Tuner  
+### Step 4 – Add your Gemini API key (optional fallback)  
+- Open the **Options** page in AI Optimizer  
 - Paste your free **Google AI Studio** API key  
-- The extension will automatically use it if Nano is unavailable
+- The extension will automatically use it if Nano isn’t available
 
 ---
 
-### Step 5 – Test it!
-- In the address bar, type:  
-  `aituner <your question>`
+### Step 5 – Test AI Optimizer  
+In the Chrome address bar, type:  
+`aioptimizer <your question>`
 - You’ll see a notification with the AI’s answer
-- The **AI Tuner side panel** opens automatically  
+- The **AI Optimizer side panel** opens automatically  
 - Adjust sliders and re-run the prompt
 
 ---
 
 ### Step 6 – Update keyword trigger (optional)
-To change the keyword (default is `aituner`) edit `manifest.json`:
+To change the keyword (default is `aioptimizer`) edit `manifest.json`:
 ```json
-"omnibox": { "keyword": "aituner" }
+"omnibox": { "keyword": "aioptimizer" }
 ```
 
 ---
 
-# 🎛️ AI Tuner
+# 🎛️ AI Optimizer
 
-**AI Tuner** lets you control how your AI thinks and speaks — from creative and chatty to factual and precise.  
+**AI Optimizer** lets you control how your AI thinks and speaks — from creative and chatty to factual and precise.  
 Built on Chrome’s **Prompt API** with **Gemini Nano**, it runs entirely **on-device** for privacy and speed.
 
 ## Features
