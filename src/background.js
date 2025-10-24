@@ -15,30 +15,53 @@ function parentalHeader(isOn){
 }
 
 async function canCreateLM() {
+  const details = {
+    hasGlobalAI: !!globalThis.ai,
+    hasGlobalAILM: !!globalThis.ai?.languageModel,
+    hasLanguageModel: !!globalThis.LanguageModel,
+    hasNavigatorAI: !!globalThis.navigator?.ai
+  };
+  console.debug("AI availability check details:", details);
   try {
-    if (globalThis.ai?.languageModel?.canCreate) {
-      return await globalThis.ai.languageModel.canCreate();
+    if (typeof globalThis.ai?.languageModel?.canCreate === "function") {
+      const v = await globalThis.ai.languageModel.canCreate();
+      console.debug("ai.languageModel.canCreate() =>", v);
+      return { ok: !!v, details };
     }
-  } catch(e) {}
+  } catch (e) { console.warn("ai.languageModel.canCreate() threw", e); }
   try {
-    if (globalThis.LanguageModel?.availability) {
+    if (typeof globalThis.LanguageModel?.availability === "function") {
       const s = await globalThis.LanguageModel.availability();
-      return (s === "readily" || s === "available" || s === "ready" || s === "downloaded" || s === "maybe");
+      console.debug("LanguageModel.availability() =>", s);
+      const ok = (s === "readily" || s === "available" || s === "ready" || s === "downloaded" || s === "maybe");
+      return { ok, details: { ...details, availability: s } };
     }
-  } catch(e) {}
-  return !!(globalThis.ai?.languageModel?.create || globalThis.LanguageModel?.create);
+  } catch (e) { console.warn("LanguageModel.availability() threw", e); }
+  // Fallback: check if create functions exist at known locations
+  const createPresent = !!(globalThis.ai?.languageModel?.create || globalThis.LanguageModel?.create || globalThis.navigator?.ai?.create);
+  return { ok: createPresent, details };
 }
 async function createSession({ systemPrompt, temperature, topK }) {
-  if (globalThis.ai?.languageModel?.create) {
-    return await globalThis.ai.languageModel.create({ systemPrompt, temperature, topK });
-  }
-  if (globalThis.LanguageModel?.create) {
-    return await globalThis.LanguageModel.create({
-      initialPrompts: [{ role: "system", content: systemPrompt }],
-      temperature, topK
-    });
-  }
-  throw new Error("Chrome Prompt API not available. Update Chrome to v138+.");
+  // Try known Prompt API shapes. Include navigator.ai as a fallback.
+  try {
+    if (typeof globalThis.ai?.languageModel?.create === "function") {
+      return await globalThis.ai.languageModel.create({ systemPrompt, temperature, topK });
+    }
+  } catch (e) { console.warn("ai.languageModel.create() threw", e); }
+  try {
+    if (typeof globalThis.LanguageModel?.create === "function") {
+      return await globalThis.LanguageModel.create({
+        initialPrompts: [{ role: "system", content: systemPrompt }],
+        temperature, topK
+      });
+    }
+  } catch (e) { console.warn("LanguageModel.create() threw", e); }
+  try {
+    if (typeof globalThis.navigator?.ai?.create === "function") {
+      return await globalThis.navigator.ai.create({ systemPrompt, temperature, topK });
+    }
+  } catch (e) { console.warn("navigator.ai.create() threw", e); }
+  throw new Error("Chrome Prompt API not available in this environment. Update Chrome to the latest version and check extension context/permissions.");
 }
 async function promptSession(session, userInput, opts={}) {
   const res = await session.prompt(userInput, opts);
@@ -53,12 +76,38 @@ async function runWithPromptAPI(input, rails, parental) {
     "Rules: Avoid exaggerated praise. Be precise; cite/hedge when unsure. Ask ONE short clarifying question if constraints conflict."
   ].join("\n");
   const can = await canCreateLM();
-  if (!can) throw new Error("Gemini Nano not available. Click again to allow download, or update Chrome.");
+  console.debug("canCreateLM ->", can);
+  if (!can || !can.ok) {
+    // Fallback: Use Gemini 1.5 cloud API
+    const apiKey = "AIzaSyAKga8TjDeC1Fy7XMnoGXfGR2Athq0Vx9M";
+    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
+    const prompt = [system, input].join("\n\nUser: ");
+    const body = JSON.stringify({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: rails.temperature,
+        topK: rails.topK,
+        maxOutputTokens: 512
+      }
+    });
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body
+    });
+    if (!resp.ok) throw new Error("Gemini 1.5 API error: " + resp.status);
+    const data = await resp.json();
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "(no response)";
+    const limited = text.split(/(?<=[.?!])\s+/).slice(0, rails.verbosityCap).join(" ");
+    return limited + "\n\n[Cloud fallback: Gemini 1.5]";
+  }
+  // Local Gemini Nano
   const session = await createSession({ systemPrompt: system, temperature: rails.temperature, topK: rails.topK });
   const draft = await promptSession(session, input);
   const limited = draft.split(/(?<=[.?!])\s+/).slice(0, rails.verbosityCap).join(" ");
   return limited;
 }
+
 chrome.runtime.onMessage.addListener((msg, _sender, send) => {
   (async () => {
     try {
@@ -74,4 +123,29 @@ chrome.runtime.onMessage.addListener((msg, _sender, send) => {
     }
   })();
   return true;
+});
+
+// Omnibox event handler: listens for Chrome address bar queries using the 'aituner' keyword
+chrome.omnibox.onInputEntered.addListener(async (text, disposition) => {
+  // Default EQ settings for omnibox trigger
+  const eq = { creativity: 50, factuality: 50, sociability: 50, obedience: 50 };
+  const parental = false;
+  try {
+    const rails = mapEq(eq);
+    const result = await runWithPromptAPI(text, rails, parental);
+    // Show result as a notification (or update omnibox suggestion)
+    chrome.notifications.create({
+      type: "basic",
+      iconUrl: "icons/icon128.png",
+      title: "AI Tuner Result",
+      message: result.slice(0, 200)
+    });
+  } catch (e) {
+    chrome.notifications.create({
+      type: "basic",
+      iconUrl: "icons/icon128.png",
+      title: "AI Tuner Error",
+      message: e.message || "Unknown error"
+    });
+  }
 });

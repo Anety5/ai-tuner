@@ -22,11 +22,15 @@
   "permissions": [
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "https://generativelanguage.googleapis.com/*"
   ],
   "background": {
     "service_worker": "src/background.js",
     "type": "module"
+  },
+  "omnibox": {
+    "keyword": "aituner"
   },
   "web_accessible_resources": [
     {
