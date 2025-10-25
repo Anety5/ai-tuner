@@ -1,3 +1,4 @@
+// Provides the SVG implementation for the ComplexityIcon component.
 import React from 'react';
 
 export const ComplexityIcon: React.FC = () => (

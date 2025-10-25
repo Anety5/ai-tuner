@@ -8,11 +8,14 @@ interface SliderProps {
   valueLabel: string;
 }
 
+
 const Slider: React.FC<SliderProps> = ({ label, value, onChange, icon, valueLabel }) => {
+  const inputId = `slider-${label.toLowerCase().replace(/\s+/g, '-')}`;
+  
   return (
     <div>
       <div className="flex justify-between items-center mb-2">
-        <label className="flex items-center text-sm font-medium text-gray-300">
+        <label htmlFor={inputId} className="flex items-center text-sm font-medium text-gray-300 cursor-pointer">
           {icon}
           <span className="ml-2">{label}</span>
         </label>
@@ -20,6 +23,7 @@ const Slider: React.FC<SliderProps> = ({ label, value, onChange, icon, valueLabe
       </div>
       <div className="relative">
         <input
+          id={inputId}
           type="range"
           min={0}
           max={100}

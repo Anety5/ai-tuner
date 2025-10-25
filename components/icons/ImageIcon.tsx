@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PlagiarismCheckIcon: React.FC = () => (
+export const ImageIcon: React.FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="20"
@@ -11,10 +11,9 @@ export const PlagiarismCheckIcon: React.FC = () => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="text-red-400"
   >
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-    <path d="M12 16a3 3 0 0 0-3 3h6a3 3 0 0 0-3-3v-2a2 2 0 1 1 4 0v2" />
-    <path d="M12 11v-1" />
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+    <circle cx="8.5" cy="8.5" r="1.5" />
+    <polyline points="21 15 16 10 5 21" />
   </svg>
 );

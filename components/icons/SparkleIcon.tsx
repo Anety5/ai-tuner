@@ -1,3 +1,4 @@
+// Provides the SVG implementation for the SparkleIcon component.
 import React from 'react';
 
 export const SparkleIcon: React.FC = () => (

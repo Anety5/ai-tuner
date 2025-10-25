@@ -1,6 +1,6 @@
 {
-  "name": "copy Idea Optimizer AI",
-  "description": "An all-purpose tool to brainstorm, optimize, summarize, and proofread ideas for any topic, from professional projects to academic research, with built-in educational settings and a plagiarism guard.",
+  "name": "Idea Optimizer AI",
+  "description": "An Ai assistant that uses prompt, voice, and speech to text to generate, read and anlyze files, images and create images with AI framework",
   "requestFramePermissions": [
     "microphone"
   ]

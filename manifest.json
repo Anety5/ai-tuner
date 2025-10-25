@@ -3,9 +3,7 @@
   "name": "Idea Optimizer AI",
   "version": "1.0",
   "description": "An all-purpose tool to brainstorm, optimize, summarize, and proofread ideas for any topic, from professional projects to academic research, with built-in educational settings and a plagiarism guard.",
-  "permissions": [
-    "ai"
-  ],
+  
   "action": {
     "default_title": "Open Idea Optimizer AI",
     "default_icon": {
@@ -14,6 +12,7 @@
       "128": "icons/icon128.png"
     }
   },
+
   "background": {
     "service_worker": "background.js"
   },
@@ -21,5 +20,8 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
+  },
+  "content_security_policy": {
+     "extension_pages": "script-src 'self' https://aistudiocdn.com https://cdnjs.cloudflare.com https://unpkg.com; object-src 'self';"
   }
 }
